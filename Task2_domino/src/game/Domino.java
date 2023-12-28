@@ -25,4 +25,14 @@ class Domino {
     public String toString() {
         return "[" + left + "|" + right + "]";
     }
+    public static List<Domino> createAndShuffleTiles() {
+        List<Domino> tiles = new ArrayList<>();
+        for (int i = 0; i <= 6; i++) {
+            for (int j = i; j <= 6; j++) {
+                tiles.add(new Domino(i, j));
+            }
+        }
+        Collections.shuffle(tiles);
+        return tiles;
+    }
 }

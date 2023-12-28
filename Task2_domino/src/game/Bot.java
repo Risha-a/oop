@@ -3,7 +3,7 @@ package game;
 import java.util.ArrayList;
 import java.util.List;
 
-import static game.Main.createAndShuffleTiles;
+import static game.Domino.createAndShuffleTiles;
 
 public class Bot {
     private List<Domino> botTiles;

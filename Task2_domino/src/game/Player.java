@@ -1,10 +1,10 @@
 package game;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
-import static game.Main.createAndShuffleTiles;
+import static game.Domino.createAndShuffleTiles;
 
 public class Player {
     private List<Domino> playerTiles;
@@ -18,19 +18,29 @@ public class Player {
         return playerTiles;
     }
 
-    public void makePlayerMove(List<Domino> playedTiles, Scanner scanner) {
+    public void makePlayerMove(List<Domino> playedTiles, JTextField inputField) {
         System.out.println("Ваши кости: " + playerTiles);
-        System.out.println("Выберите кость для хода: ");
-        int index = scanner.nextInt();
 
-        Domino selectedTile = playerTiles.remove(index - 1);
+        int index;
+        try {
+            index = Integer.parseInt(inputField.getText()) - 1;
+        } catch (NumberFormatException e) {
+            System.out.println("Пожалуйста, введите корректное число.");
+            return;
+        }
 
-        if (isMoveValid(selectedTile, playedTiles)) {
-            playedTiles.add(selectedTile);
-            System.out.println("Вы сыграли кость: " + selectedTile);
+        if (index >= 0 && index < playerTiles.size()) {
+            Domino selectedTile = playerTiles.remove(index);
+
+            if (isMoveValid(selectedTile, playedTiles)) {
+                playedTiles.add(selectedTile);
+                System.out.println("Вы сыграли кость: " + selectedTile);
+            } else {
+                System.out.println("Выбранная кость не подходит. Выберите другую.");
+                playerTiles.add(selectedTile);
+            }
         } else {
-            System.out.println("Выбранная кость не подходит. Выберите другую.");
-            playerTiles.add(selectedTile);
+            System.out.println("Пожалуйста, выберите корректный номер кости.");
         }
     }
 
